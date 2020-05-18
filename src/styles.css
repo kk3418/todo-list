@@ -1,0 +1,65 @@
+:root {
+    --bg: wheat;
+    --button-shaddow: 0 2px 5px 2px rgb(152, 144, 133);
+    font-size: 24px;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    height: 2rem;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.filter-group > * {
+    border: none;
+    background-color: var(--bg);
+    box-shadow: var(--button-shaddow);
+    font-size: 1rem;
+}
+
+.todo-list {
+    position: relative;
+    top: 10vh;
+    min-height: 70vh;
+    max-width: 60vw;
+    margin: 0 auto;
+    background-color: var(--bg);
+}
+
+.todo-list div > ul{
+    list-style: none;
+    line-height: 2rem;
+}
+
+.remove-button {
+    background-color: var(--bg);
+    border: none;
+    height: 1rem;
+    margin-left: 1rem;
+    font-size: 0.5rme;
+    box-shadow: var(--button-shaddow)
+}
+
+.insert-area > * {
+    background-color: var(--bg);
+    border: none; 
+    max-width: 10rem;
+    font-size: 1rem;
+}
+
+.insert-area button {
+    height: 1rem;
+    font-size: 0.5rem;
+    box-shadow: var(--button-shaddow)
+}
+
+
+
+
