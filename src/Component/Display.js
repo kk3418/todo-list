@@ -14,7 +14,7 @@ export default function Display() {
         const result = s.map(
             (item, index) => {
                 if (item.complete === diff) return (             
-                    <li key={index}>
+                    <li key={index}> 
                         <input type="checkbox" 
                         checked={diff}
                         onChange={()=> dispatch(change_stage(item.title))}
@@ -36,14 +36,14 @@ export default function Display() {
     }
 
     return (
-        <div>
+        <div className="container">
             <ul style={{display: isDisplay.todo ? "block" : "none"}}>
-                <h3>To do</h3>
+                <li style={{fontSize: "1.2rem"}}>To do</li>
                 {todo}
                 <Insert />
             </ul>
             <ul style={{display: isDisplay.done ? "block" : "none"}}>
-                <h3>Done</h3>
+                <li style={{fontSize: "1.2rem"}}>Done</li>
                {done}
             </ul>
         </div>

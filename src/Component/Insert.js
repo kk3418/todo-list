@@ -18,8 +18,10 @@ export default function Insert() {
             />
             <button onClick={
                 () => {
-                    dispatch(add_items(insert))
-                    setInsert("")
+                    if (insert !== "") {
+                        dispatch(add_items(insert))
+                        setInsert("")
+                    }
                 }
             }
             >add</button>

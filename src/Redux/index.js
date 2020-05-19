@@ -33,20 +33,24 @@ function filter_reducer(state= InitState.filter, action) {
 function data_reducer(state = InitState.data, action) {
     switch(action.type){
         case "ADD_ITEM":
-            return [
+            let tmp1 = state.filter(
+                check => check.title !== action.title
+            )
+            return tmp1.length === state.length  ? [
                 ...state,
                 {
                     title: action.title,
                     complete: false
                 }
-            ]
+            ] :
+            [...state]
         case "REMOVE_ITEM": 
-            let tmp1 = state.filter(
+            let tmp2 = state.filter(
                 check => check.title !== action.title
             )
-            return tmp1
+            return tmp2
         case "CHANGE_STAGE":
-            let tmp2 = state.map(
+            let tmp3 = state.map(
                 check => {
                     if(check.title === action.title){
                         return {...check, complete: !check.complete}
@@ -54,7 +58,7 @@ function data_reducer(state = InitState.data, action) {
                     return {...check}
                 }
             )
-            return tmp2
+            return tmp3
         default: 
                 return state
     }

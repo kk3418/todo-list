@@ -8,32 +8,38 @@ body {
     padding: 0;
     margin: 0;
     font-size: 1rem;
-}
-
-.filter-group {
-    display: flex;
-    height: 2rem;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.filter-group > * {
-    border: none;
     background-color: var(--bg);
-    box-shadow: var(--button-shaddow);
-    font-size: 1rem;
 }
+
 
 .todo-list {
     position: relative;
     top: 10vh;
-    min-height: 70vh;
-    max-width: 60vw;
+    min-height: 70vmin;
+    max-width: 60vmax;
     margin: 0 auto;
-    background-color: var(--bg);
+    border-style: groove;
 }
 
-.todo-list div > ul{
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 4rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-group > * {
+    border-style: 4px solid #acacac;
+    margin: 2px;
+    width: 15vh;
+    background-color: var(--bg);
+    font-size: 1rem;
+}
+
+.container > ul{
+    margin: auto 0 5% 0;
+    padding-left: 10%;
     list-style: none;
     line-height: 2rem;
 }
@@ -47,19 +53,25 @@ body {
     box-shadow: var(--button-shaddow)
 }
 
-.insert-area > * {
+.insert-area {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end
+}
+
+.insert-area input {
     background-color: var(--bg);
     border: none; 
-    max-width: 10rem;
     font-size: 1rem;
 }
 
 .insert-area button {
     height: 1rem;
     font-size: 0.5rem;
-    box-shadow: var(--button-shaddow)
+    box-shadow: var(--button-shaddow);
+    background-color: var(--bg);
 }
 
-
-
-
+.is-display {
+    background-color: rgb(238, 81, 81);
+}
