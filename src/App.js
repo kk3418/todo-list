@@ -1,15 +1,19 @@
-import React from 'react';
+import React from 'react'
+import {Provider} from 'react-redux'
+import store from './Redux'
 import Display from './Component/Display'
 import Filter from './Component/Filter'
-import './styles.css';
+import './styles.css'
 
 function App() {
 
   return (
-    <div className="todo-list">
-      <Filter />
-      <Display />
-    </div>
+    <Provider store={store}>
+      <div className="todo-list">
+        <Filter />
+        <Display />
+      </div>
+    </Provider>
   )
 }
 

@@ -5,16 +5,23 @@ import {display_todo, display_done, display_all} from '../Redux/actions'
 export default function Filter(props) {
 
     const dispatch = useDispatch()
+    const{todo, done} = useSelector(state => state.filter)
 
     return (
         <div className="filter-group">
-            <button onClick={ () => dispatch(display_all()) }>
+            <button 
+            className={todo && done === true ? "is-click" : null}
+            onClick={ () => dispatch(display_all()) }>
                 ALL
             </button >
-            <button onClick={ () => dispatch(display_todo()) }>
+            <button 
+            className={todo === true && done === false ? "is-click" : null}
+            onClick={ () => dispatch(display_todo()) }>
                 TODO
             </button>
-            <button onClick={ () => dispatch(display_done()) }>
+            <button 
+            className={todo === false && done === true ? "is-click" : null}
+            onClick={ () => dispatch(display_done()) }>
                 DONE
             </button>
         </div>

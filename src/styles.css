@@ -1,5 +1,5 @@
 :root {
-    --bg: wheat;
+    --bg: rgb(245, 222, 179);
     --button-shaddow: 0 2px 5px 2px rgb(152, 144, 133);
     font-size: 24px;
 }
@@ -10,7 +10,6 @@ body {
     font-size: 1rem;
     background-color: var(--bg);
 }
-
 
 .todo-list {
     position: relative;
@@ -72,6 +71,6 @@ body {
     background-color: var(--bg);
 }
 
-.is-display {
-    background-color: rgb(238, 81, 81);
+.is-click {
+    background-color: rgb(218, 192, 143)
 }
