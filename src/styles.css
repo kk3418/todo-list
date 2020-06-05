@@ -29,7 +29,7 @@ body {
 }
 
 .filter-group > * {
-    border-style: 4px solid #acacac;
+    border: 2px solid #acacac;
     margin: 2px;
     width: 15vh;
     background-color: var(--bg);
@@ -58,10 +58,15 @@ body {
     align-items: flex-end
 }
 
-.insert-area input {
+.insert-place {
     background-color: var(--bg);
     border: none; 
     font-size: 1rem;
+}
+
+.insert-area :focus {
+    color: brown;
+    outline: 1px solid rgba(128, 0, 128, 0.543);
 }
 
 .insert-area button {
