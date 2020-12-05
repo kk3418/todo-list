@@ -1,11 +1,12 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {remove_items, change_stage} from '../Redux/actions'
+import {dataSlice} from '../Redux'
 import Insert from './Insert'
 
 export default function Display() {
 
     const dispatch =useDispatch()
+    const { change_stage, remove_item} = dataSlice.actions
     const todo = useSelector(state => Mapping(state.data, false))
     const done = useSelector(state => Mapping(state.data, true))
     const isDisplay = useSelector(state => state.filter)
@@ -22,7 +23,7 @@ export default function Display() {
                         {item.title}
                         <button className="remove-button"
                         onClick={
-                            () => dispatch(remove_items(item.title))
+                            () => dispatch(remove_item(item.title))
                         }
                         >
                             remove

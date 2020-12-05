@@ -1,78 +1,58 @@
-import {createStore, combineReducers} from 'redux'
+import {createSlice, configureStore, combineReducers} from '@reduxjs/toolkit'
 
-let InitState = {
-    data: [
-        {
-            title: "wash dishes",
-            complete: false
-        },
-        {
-            title: "go home",
-            complete: true
-        }
-    ],
-    filter: {
+export const filterSlice = createSlice({
+    name: 'filter',
+    initialState: {
         todo: true,
-        done: true
+        done: true,
+    },
+    reducers: {
+       display_todo: state => ({ done: false, todo: true }),
+       display_done: state => ({ todo: false, done: true }),
+       display_all: state => ({ done: true, todo: true }),
     }
-}
-
-function filter_reducer(state= InitState.filter, action) {
-    switch(action.type){
-        case "_TODO":
-            return {done: false, todo: true}
-        case "_DONE":
-            return {done: true, todo: false}
-        case "_ALL":
-            return {done: true, todo: true}
-        default:
-            return state
-    }
-}
-
-function data_reducer(state = InitState.data, action) {
-    switch(action.type){
-        case "ADD_ITEM":
-            let tmp1 = state.filter(
-                check => check.title !== action.title
-            )
-            return tmp1.length === state.length  ? [
-                ...state,
-                {
-                    title: action.title,
-                    complete: false
-                }
-            ] :
-            [...state]
-        case "REMOVE_ITEM": 
-            let tmp2 = state.filter(
-                check => check.title !== action.title
-            )
-            return tmp2
-        case "CHANGE_STAGE":
-            let tmp3 = state.map(
-                check => {
-                    if(check.title === action.title){
-                        return {...check, complete: !check.complete}
-                    }
-                    return {...check}
-                }
-            )
-            return tmp3
-        default: 
-                return state
-    }
-}
-
-const root_reducer= combineReducers({
-    data: data_reducer,
-    filter: filter_reducer
 })
 
-const store = createStore(
-    root_reducer, 
-    InitState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+export const dataSlice = createSlice({
+    name: 'data',
+    initialState: [
+        {
+            title: 'wash dishes',
+            complete: false,
+        }
+    ],
+    reducers: {
+        add_item: (state, action) => {
+            const tmp1 = state.filter(
+                check => check.title !== action.payload
+            )
+            return tmp1.length === state.length ? [
+                ...state,
+                {
+                    title: action.payload,
+                    complete: false,
+                }
+            ] : [...state]
+        },
+        remove_item: (state, action) => state.filter(
+            check => check.title !== action.payload
+        ),
+        change_stage: (state, action) => state.map(
+            v => {
+                if (v.title === action.payload) {
+                    return {...v, complete: !v.complete}
+                }
+                return {...v}
+            }
+        )
+    }
+})
+
+const store = configureStore({
+    reducer: combineReducers({
+        data: dataSlice.reducer,
+        filter: filterSlice.reducer,
+    })
+})
 
 export default store

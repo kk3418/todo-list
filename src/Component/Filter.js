@@ -1,10 +1,11 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {display_todo, display_done, display_all} from '../Redux/actions'
+import {filterSlice} from '../Redux'
 
-export default function Filter(props) {
+export default function Filter() {
 
     const dispatch = useDispatch()
+    const { display_todo, display_done, display_all } = filterSlice.actions
     const{todo, done} = useSelector(state => state.filter)
 
     return (

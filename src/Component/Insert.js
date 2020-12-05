@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {add_items} from '../Redux/actions'
+import {dataSlice} from '../Redux'
 
 export default function Insert() {
 
     const dispatch = useDispatch()
     const [insert, setInsert] = useState("")
+    const { add_item } = dataSlice.actions
 
     useEffect(() => {
         const f = document.querySelector('.insert-place')
@@ -24,7 +25,7 @@ export default function Insert() {
             }
             onKeyDown={ event => {
                 if (event.key === 'Enter' && insert !== ''){
-                    dispatch(add_items(insert))
+                    dispatch(add_item(insert))
                 }
             }}
             />
