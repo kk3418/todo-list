@@ -7,9 +7,9 @@ export const filterSlice = createSlice({
         done: true,
     },
     reducers: {
-       display_todo: state => ({ done: false, todo: true }),
-       display_done: state => ({ todo: false, done: true }),
-       display_all: state => ({ done: true, todo: true }),
+       display_todo: () => ({ done: false, todo: true }),
+       display_done: () => ({ todo: false, done: true }),
+       display_all: () => ({ done: true, todo: true }),
     }
 })
 
