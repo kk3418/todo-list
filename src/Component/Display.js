@@ -26,7 +26,7 @@ export default function Display() {
                             () => dispatch(remove_item(item.title))
                         }
                         >
-                            remove
+                            &#10005;
                         </button>
                     </li>
                 )

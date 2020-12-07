@@ -49,7 +49,6 @@ body {
     height: 1rem;
     margin-left: 1rem;
     font-size: 0.5rme;
-    box-shadow: var(--button-shaddow)
 }
 
 .insert-area {
