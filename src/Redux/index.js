@@ -1,4 +1,5 @@
 import {createSlice, configureStore, combineReducers} from '@reduxjs/toolkit'
+import {loginSlice} from './loginSlice'
 
 export const filterSlice = createSlice({
     name: 'filter',
@@ -50,6 +51,7 @@ export const dataSlice = createSlice({
 
 const store = configureStore({
     reducer: combineReducers({
+        login: loginSlice.reducer,
         data: dataSlice.reducer,
         filter: filterSlice.reducer,
     })
