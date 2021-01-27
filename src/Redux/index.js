@@ -16,12 +16,7 @@ export const filterSlice = createSlice({
 
 export const dataSlice = createSlice({
     name: 'data',
-    initialState: [
-        {
-            title: 'wash dishes',
-            complete: false,
-        }
-    ],
+    initialState: [],
     reducers: {
         add_item: (state, action) => {
             const tmp1 = state.filter(

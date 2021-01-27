@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import Login from './Login'
 import Display from './Component/Display'
 import Filter from './Component/Filter'
-import './styles.css'
+import './style/base.css'
 
 function App() {
   const isLogin = useSelector(state => state.login.isLogin)

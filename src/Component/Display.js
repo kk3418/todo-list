@@ -16,17 +16,16 @@ export default function Display() {
             (item, index) => {
                 if (item.complete === diff) return (             
                     <li key={index}> 
-                        <input type="checkbox" 
-                        checked={diff}
-                        onChange={()=> dispatch(change_stage(item.title))}
+                        <input type="checkbox"
+                            className="check-done" 
+                            checked={diff}
+                            onChange={()=> dispatch(change_stage(item.title))}
                         />
                         {item.title}
                         <button className="remove-button"
-                        onClick={
-                            () => dispatch(remove_item(item.title))
-                        }
+                            onClick={() => dispatch(remove_item(item.title))}
                         >
-                            &#10005;
+                            remove
                         </button>
                     </li>
                 )
@@ -37,7 +36,7 @@ export default function Display() {
     }
 
     return (
-        <div className="container">
+        <div className="list">
             <ul style={{display: isDisplay.todo ? "block" : "none"}}>
                 <li style={{fontSize: "1.2rem"}}>To do</li>
                 {todo}

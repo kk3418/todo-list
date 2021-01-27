@@ -23,25 +23,36 @@ export default function Login() {
     </FormText>
 
     return (
-        <Form onSubmit={handleSubmit(submit)} >
-            <FormGroup controlId="email-input">
+        <Form onSubmit={handleSubmit(submit)} 
+            className="login-container"
+        >
+            <FormGroup controlId="email-input"
+                bsPrefix="login-items"
+            >
                 <FormLabel>Email</FormLabel>
-                <FormControl type="email" placeholder="email" 
+                <FormControl size="sm"
+                    type="email" placeholder="email" 
                      ref={register({required: true})} name="account"
                 />
                 { errors.account && errorsText('email')}
             </FormGroup>
 
-            <FormGroup controlId="password-input">
+            <FormGroup controlId="password-input"
+                bsPrefix="login-items"
+            >
                 <FormLabel>Password</FormLabel>
-                <FormControl type="password" placeholder="Password" 
+                <FormControl size="sm"
+                    type="password" placeholder="Password" 
                     ref={register({required: true})} name="password"
                 />
                 { errors.password && errorsText('password')}
             </FormGroup>
 
-            <FormGroup controlId="agree-checkbox">
-                <FormCheck type="checkbox" label="Check me out" 
+            <FormGroup controlId="agree-checkbox"
+                bsPrefix="login-items"
+            >
+                <FormCheck type="checkbox" 
+                    label="I agree my email is seen by developer" 
                     ref={register({required: true})} name="agree_check"
                 />
                 { errors.agree_check && <FormText className="text-muted">
@@ -49,7 +60,7 @@ export default function Login() {
                 </FormText> }
             </FormGroup>
             <Button variant="primary" type="submit">
-                Submit
+                Login / Register
             </Button>
         </Form>
     )
