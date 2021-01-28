@@ -1,3 +1,4 @@
+@import url("./login-style.css");
 :root {
     --bg: rgb(245, 222, 179);
     --button-shaddow: 0 2px 5px 2px rgb(152, 144, 133);
@@ -9,18 +10,6 @@ body {
     margin: 0;
     font-size: 1rem;
     background-color: var(--bg);
-}
-
-.login-container {
-    position: relative;
-    top: 20vh;
-    margin: auto;
-    width: 70%;
-    height: 50vh;
-}
-
-.login-items {
-    margin: 2vh auto;
 }
 
 .todo-list {

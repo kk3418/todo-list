@@ -7,7 +7,7 @@ import FormLabel from 'react-bootstrap/FormLabel'
 import FormGroup from 'react-bootstrap/FormGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import FormCheck from 'react-bootstrap/FormCheck'
-import FormText from 'react-bootstrap/FormText'
+import Alert from 'react-bootstrap/Alert'
  import Button from 'react-bootstrap/Button'
 
 export default function Login() {
@@ -18,9 +18,11 @@ export default function Login() {
         dispatch(login())
         console.log(data)
     }
-    const errorsText = text => <FormText className="text-muted">
+    const errorsText = text => <Alert variant="danger" 
+        bsPrefix="alert-items"
+    >
         {`Please insert your ${text}`}
-    </FormText>
+    </Alert>
 
     return (
         <Form onSubmit={handleSubmit(submit)} 
@@ -55,9 +57,9 @@ export default function Login() {
                     label="I agree my email is seen by developer" 
                     ref={register({required: true})} name="agree_check"
                 />
-                { errors.agree_check && <FormText className="text-muted">
+                { errors.agree_check && <Alert bsPrefix="alert-items">
                     Please check it
-                </FormText> }
+                </Alert> }
             </FormGroup>
             <Button variant="primary" type="submit">
                 Login / Register
