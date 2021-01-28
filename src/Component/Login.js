@@ -1,23 +1,28 @@
 import React from 'react'
+import {signIn} from '../firebase'
 import {useForm} from 'react-hook-form'
 import {useDispatch} from 'react-redux'
-import {loginSlice} from './Redux/loginSlice'
+import {loginSlice} from '../Redux/loginSlice'
 import Form from 'react-bootstrap/Form'
-import FormLabel from 'react-bootstrap/FormLabel'
-import FormGroup from 'react-bootstrap/FormGroup'
-import FormControl from 'react-bootstrap/FormControl'
-import FormCheck from 'react-bootstrap/FormCheck'
 import Alert from 'react-bootstrap/Alert'
  import Button from 'react-bootstrap/Button'
 
 export default function Login() {
-    const { register, handleSubmit, errors } = useForm()
+    const { register, errors, handleSubmit } = useForm()
     const { login } = loginSlice.actions
     const dispatch = useDispatch()
-    const submit = data => {
-        dispatch(login())
-        console.log(data)
+    
+    const onSubmit = (data, e) => {
+        e.preventDefault()
+        const { account, password } = data
+        signIn(account, password)
+            .then(userCredential => {
+                console.log(userCredential)
+                dispatch(login())
+            })
+            .catch(error => console.error(error.message))
     }
+    const onError = (error, e) => console.log(error, e)
     const errorsText = text => <Alert variant="danger" 
         bsPrefix="alert-items"
     >
@@ -25,42 +30,42 @@ export default function Login() {
     </Alert>
 
     return (
-        <Form onSubmit={handleSubmit(submit)} 
+        <Form onSubmit={handleSubmit(onSubmit, onError)} 
             className="login-container"
         >
-            <FormGroup controlId="email-input"
+            <Form.Group controlId="email-input"
                 bsPrefix="login-items"
             >
-                <FormLabel>Email</FormLabel>
-                <FormControl size="sm"
+                <Form.Label>Email</Form.Label>
+                <Form.Control size="sm"
                     type="email" placeholder="email" 
                      ref={register({required: true})} name="account"
                 />
                 { errors.account && errorsText('email')}
-            </FormGroup>
+            </Form.Group>
 
-            <FormGroup controlId="password-input"
+            <Form.Group controlId="password-input"
                 bsPrefix="login-items"
             >
-                <FormLabel>Password</FormLabel>
-                <FormControl size="sm"
+                <Form.Label>Password</Form.Label>
+                <Form.Control size="sm"
                     type="password" placeholder="Password" 
                     ref={register({required: true})} name="password"
                 />
                 { errors.password && errorsText('password')}
-            </FormGroup>
+            </Form.Group>
 
-            <FormGroup controlId="agree-checkbox"
+            <Form.Group controlId="agree-checkbox"
                 bsPrefix="login-items"
             >
-                <FormCheck type="checkbox" 
+                <Form.Check type="checkbox" 
                     label="I agree my email is seen by developer" 
                     ref={register({required: true})} name="agree_check"
                 />
                 { errors.agree_check && <Alert bsPrefix="alert-items">
                     Please check it
                 </Alert> }
-            </FormGroup>
+            </Form.Group>
             <Button variant="primary" type="submit">
                 Login / Register
             </Button>
