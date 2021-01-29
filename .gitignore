@@ -83,7 +83,11 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+
+# firebase config
 .firebase/
+src/firebase.js
+src/firebase.ts
 
 # Gatsby files
 .cache/
