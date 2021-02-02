@@ -1,16 +1,12 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {useForm} from 'react-hook-form'
-import {useDispatch} from 'react-redux'
-import {Auth, signIn} from '../firebase'
-import {loginSlice} from '../Redux/loginSlice'
+import {signIn} from '../firebase'
 import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 
 export default function Login() {
     const { register, errors, handleSubmit } = useForm()
-    const { succeedLogin, failLogin } = loginSlice.actions
-    const dispatch = useDispatch()
     
     const onSubmit = (data, e) => {
         e.preventDefault()
@@ -24,13 +20,6 @@ export default function Login() {
         {`Please insert your ${text}`}
     </Alert>
 
-    useEffect(()=> {
-        Auth.onAuthStateChanged(user => {
-            if (user) dispatch(succeedLogin())
-            else dispatch(failLogin())
-        })
-    })
-
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)} 
             className="login-container"
@@ -40,7 +29,7 @@ export default function Login() {
             >
                 <Form.Label>Email</Form.Label>
                 <Form.Control size="sm"
-                    type="email" placeholder="email" 
+                    type="email" placeholder="email"
                      ref={register({required: true})} name="account"
                 />
                 { errors.account && errorsText('email')}
