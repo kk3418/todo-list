@@ -6,6 +6,11 @@ export const loginSlice = createSlice({
         isLogin: false,
     },
     reducers: {
-        login: () => ({ isLogin: true })
+        succeedLogin: () => ({
+            isLogin: true,
+        }),
+        failLogin: () => ({
+            isLogin: false,
+        })
     }
 })

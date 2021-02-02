@@ -1,26 +1,21 @@
-import React from 'react'
-import {signIn} from '../firebase'
+import React, {useEffect} from 'react'
 import {useForm} from 'react-hook-form'
 import {useDispatch} from 'react-redux'
+import {Auth, signIn} from '../firebase'
 import {loginSlice} from '../Redux/loginSlice'
 import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
- import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button'
 
 export default function Login() {
     const { register, errors, handleSubmit } = useForm()
-    const { login } = loginSlice.actions
+    const { succeedLogin, failLogin } = loginSlice.actions
     const dispatch = useDispatch()
     
     const onSubmit = (data, e) => {
         e.preventDefault()
         const { account, password } = data
-        signIn(account, password)
-            .then(userCredential => {
-                console.log(userCredential)
-                dispatch(login())
-            })
-            .catch(error => console.error(error.message))
+        signIn(account, password).catch(error => console.log(error.message))
     }
     const onError = (error, e) => console.log(error, e)
     const errorsText = text => <Alert variant="danger" 
@@ -28,6 +23,13 @@ export default function Login() {
     >
         {`Please insert your ${text}`}
     </Alert>
+
+    useEffect(()=> {
+        Auth.onAuthStateChanged(user => {
+            if (user) dispatch(succeedLogin())
+            else dispatch(failLogin())
+        })
+    })
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)} 

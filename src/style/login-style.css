@@ -18,3 +18,11 @@
     color: red;
     background-color: pink;
 }
+
+.logout-button {
+    border: none;
+    display: block;
+    background-color: inherit;
+    margin: 5vh auto;
+    color: red;
+}

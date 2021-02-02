@@ -13,4 +13,7 @@ const firebaseConfig = {
 }
 const app = firebase.initializeApp(firebaseConfig)
 
-export const signIn = (email, password) => app.auth().signInWithEmailAndPassword(email, password)
+export const Auth = app.auth()
+
+export const signIn = async (email, password) => 
+    await app.auth().signInWithEmailAndPassword(email, password)
