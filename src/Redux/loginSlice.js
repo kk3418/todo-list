@@ -6,7 +6,8 @@ export const loginSlice = createSlice({
         isLogin: false,
     },
     reducers: {
-        succeedLogin: () => ({
+        succeedLogin: (state, action) => ({
+            uid: action.payload.uid,
             isLogin: true,
         }),
         failLogin: () => ({

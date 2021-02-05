@@ -18,18 +18,26 @@ export const Auth = app.auth()
 
 export const db = app.firestore().collection("list")
 
-export const addTodoItem = async (owner, item) => await
-  db.doc(`${owner}_data`).update({
-    todo: firebase.firestore.FieldValue.arrayUnion({
-      item: item,
-      time: firebase.firestore.Timestamp.fromDate(new Date())
-    })
-  }).catch(error => console.log(error.message))
+const { serverTimestamp } = firebase.firestore.FieldValue
 
-export const deleteTodoItem = async (owner, item) => await
-  db.doc(`${owner}_data`).update({
-    todo: firebase.firestore.FieldValue.arrayRemove({item})
-  })
+export const updateDoc = async (uid, item) => await db
+    .add({
+        uid,
+        todo: item,
+        createdAt: serverTimestamp(),
+    })
+    .then(res => console.log('success: ', res))
+    .catch(error => console.error(error))
+
+export const  observeChange = (uid) => db
+    .where('uid', '==', uid)
+    .onSnapshot(querySanpshot => {
+        querySanpshot.docChanges().forEach(change => {
+            if (change.type === 'added') console.log('added')
+            else if (change.type === 'modified') console.log('midified')
+            else console.log('else')
+        })
+    }, (error) => console.log('Error of firestore: ', error))
 
 export const signIn = async (email, password) => 
     await app.auth().signInWithEmailAndPassword(email, password)

@@ -5,20 +5,24 @@ import Login from './Component/Login'
 import Display from './Component/Display'
 import Filter from './Component/Filter'
 import './style/base.css'
-import { Auth } from './firebase'
+import { Auth, observeChange } from './firebase'
 
 function App() {
-  const isLogin = useSelector(state => state.login.isLogin)
   const { succeedLogin, failLogin } = loginSlice.actions
+  const isLogin = useSelector(state => state.login.isLogin)
   const dispatch = useDispatch()
   const logout = () => Auth.signOut()
 
   useEffect(()=> {
-    Auth.onAuthStateChanged(user => {
-        if (user) dispatch(succeedLogin())
+    const unsubscribe = Auth.onAuthStateChanged(user => {
+        if (user) {
+          dispatch(succeedLogin({ uid: user.uid }))
+          observeChange(user.uid)
+        }
         else dispatch(failLogin())
     })
-})
+    return unsubscribe
+  })
 
   return (
     <>

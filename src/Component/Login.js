@@ -11,7 +11,10 @@ export default function Login() {
     const onSubmit = (data, e) => {
         e.preventDefault()
         const { account, password } = data
-        signIn(account, password).catch(error => console.log(error.message))
+        signIn(account, password).catch(error => {
+            console.log(error.message)
+            window.alert('Your account not exist or password is wrong')
+        })
     }
     const onError = (error, e) => console.log(error, e)
     const errorsText = text => <Alert variant="danger" 
@@ -30,7 +33,7 @@ export default function Login() {
                 <Form.Label>Email</Form.Label>
                 <Form.Control size="sm"
                     type="email" placeholder="email"
-                     ref={register({required: true})} name="account"
+                    ref={register({required: true})} name="account"
                 />
                 { errors.account && errorsText('email')}
             </Form.Group>
