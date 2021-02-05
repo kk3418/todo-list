@@ -17,25 +17,25 @@ export default function Insert() {
     return (
         <li className="insert-area">
             <input name="A_A"
-            ref={Ref}
-            className="insert-place"
-            placeholder="add something here"
-            type="text" 
-            value={insert} 
-            onChange={
-                e => setInsert(e.target.value)
-            }
-            onKeyPress={ event => {
-                if (event.key === 'Enter' && insert !== ''){
-                    dispatch(add_item(insert))
-                    setInsert('')
-                    try {
-                        updateDoc(uid, insert)
-                    } catch {
-                        console.error('updateDoc function fail')
-                    }
+                ref={Ref}
+                className="insert-place"
+                placeholder="add something here"
+                type="text"
+                value={insert}
+                onChange={
+                    e => setInsert(e.target.value)
                 }
-            }}
+                onKeyPress={event => {
+                    if (event.key === 'Enter' && insert !== '') {
+                        dispatch(add_item(insert))
+                        setInsert('')
+                        try {
+                            updateDoc(uid, insert)
+                        } catch {
+                            console.error('updateDoc function fail')
+                        }
+                    }
+                }}
             />
         </li>
     )
