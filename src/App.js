@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import {dataSlice} from './Redux'
 import {loginSlice} from './Redux/loginSlice'
 import Login from './Component/Login'
@@ -11,21 +12,16 @@ import { Auth } from './firebase'
 function App() {
   const { succeedLogin, failLogin } = loginSlice.actions
   const { delete_items } = dataSlice.actions
+  const [user] = useAuthState(Auth)
   const isLogin = useSelector(state => state.login.isLogin)
   const dispatch = useDispatch()
   const logout = () => Auth.signOut()
 
   useEffect(()=> {
-    const unsubscribe = Auth.onAuthStateChanged(user => {
-        if (user) {
-          dispatch(succeedLogin({ uid: user.uid }))
-        }
-        else {
-          dispatch(failLogin())
-          dispatch(delete_items())
-        }
-    })
-    return unsubscribe
+    if (user) {
+      dispatch(delete_items())
+      dispatch(succeedLogin(user.uid))
+    } else dispatch(failLogin())
   })
 
   return (
@@ -33,9 +29,9 @@ function App() {
       { isLogin ? <div className="todo-list">
         <Filter />
         <Display />
-		<button className="logout-button" onClick={logout}>
-           	Logout
-        </button>
+		  <button className="logout-button" onClick={logout}>
+        Logout
+      </button>
       </div> : <Login /> }
     </>
   )
