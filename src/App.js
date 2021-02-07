@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {dataSlice} from './Redux'
 import {loginSlice} from './Redux/loginSlice'
 import Login from './Component/Login'
 import Display from './Component/Display'
 import Filter from './Component/Filter'
 import './style/base.css'
-import { Auth, observeChange } from './firebase'
+import { Auth } from './firebase'
 
 function App() {
   const { succeedLogin, failLogin } = loginSlice.actions
+  const { delete_items } = dataSlice.actions
   const isLogin = useSelector(state => state.login.isLogin)
   const dispatch = useDispatch()
   const logout = () => Auth.signOut()
@@ -17,9 +19,11 @@ function App() {
     const unsubscribe = Auth.onAuthStateChanged(user => {
         if (user) {
           dispatch(succeedLogin({ uid: user.uid }))
-          observeChange(user.uid)
         }
-        else dispatch(failLogin())
+        else {
+          dispatch(failLogin())
+          dispatch(delete_items())
+        }
     })
     return unsubscribe
   })

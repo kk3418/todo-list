@@ -1,14 +1,25 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {dataSlice} from '../Redux'
-import {updateDoc} from '../firebase'
+import {Auth, updateDoc} from '../firebase'
 
 export default function Insert() {
     const Ref = useRef()
-    const uid = useSelector(state => state.login.uid)
     const dispatch = useDispatch()
     const [insert, setInsert] = useState("")
     const { add_item } = dataSlice.actions
+    const handleKeyPress = e => {
+        if (e.key === 'Enter' && insert !== '') {
+            e.preventDefault()
+            dispatch(add_item(insert))
+            setInsert('')
+            try {
+                updateDoc(Auth.currentUser.uid, insert)
+            } catch(error) {
+                console.error('updateDoc function fail', error)
+            }
+        }
+    }
 
     useEffect(() => {
         Ref.current.focus()
@@ -16,26 +27,15 @@ export default function Insert() {
 
     return (
         <li className="insert-area">
-            <input name="A_A"
+            <input name="insert-box"
                 ref={Ref}
                 className="insert-place"
                 placeholder="add something here"
                 type="text"
                 value={insert}
-                onChange={
-                    e => setInsert(e.target.value)
-                }
-                onKeyPress={event => {
-                    if (event.key === 'Enter' && insert !== '') {
-                        dispatch(add_item(insert))
-                        setInsert('')
-                        try {
-                            updateDoc(uid, insert)
-                        } catch {
-                            console.error('updateDoc function fail')
-                        }
-                    }
-                }}
+                onChange={e => setInsert(e.target.value)}
+                required
+                onKeyPress={handleKeyPress}
             />
         </li>
     )
