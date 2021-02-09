@@ -20,7 +20,7 @@ function App() {
 
   useEffect(()=> {
     user ? dispatch(succeedLogin(user.uid)) : dispatch(failLogin())
-  })
+  }, [user, dispatch, succeedLogin, failLogin])
 
   return (
     <>
