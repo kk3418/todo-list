@@ -55,7 +55,7 @@ export default function Display() {
                         <input type="checkbox"
                             className="check-done" 
                             checked={isCompleted}
-                            onChange={() => handleCheckStatus(item.docID)}
+                            onChange={() => handleCheckStatus(item.docID, !item.complete)}
                         />
                         {item.title}
                         <button className="remove-button"

@@ -31,11 +31,11 @@ export const dataSlice = createSlice({
             ] : [...state]
         },
         remove_item: (state, action) => state.filter(
-            check => check.title !== action.payload
+            check => check.docID !== action.payload
         ),
         change_stage: (state, action) => state.map(
             v => {
-                if (v.title === action.payload) {
+                if (v.docID === action.payload) {
                     return {...v, complete: !v.complete}
                 }
                 return {...v}
