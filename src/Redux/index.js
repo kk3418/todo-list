@@ -18,21 +18,6 @@ export const dataSlice = createSlice({
     name: 'data',
     initialState: [],
     reducers: {
-        add_item: (state, action) => {
-            const tmp1 = state.filter(
-                check => check.title !== action.payload
-            )
-            return tmp1.length === state.length ? [
-                ...state,
-                {
-                    title: action.payload,
-                    complete: false,
-                }
-            ] : [...state]
-        },
-        remove_item: (state, action) => state.filter(
-            check => check.docID !== action.payload
-        ),
         change_stage: (state, action) => state.map(
             v => {
                 if (v.docID === action.payload) {

@@ -33,7 +33,7 @@ export const createDoc = (uid, item) => db
 
 export const updateDoc = (docID, complete) => db.doc(docID)
     .update({ complete })
-    .then(res => console.log('success: ', res))
+    .then(() => console.log('success to change ', complete))
 
 export const removeDoc = (docID) => db.doc(docID).delete()
     .then(() => console.log('Item has been deleted'))

@@ -8,7 +8,7 @@ import  {Auth, fetchQuery, removeDoc, updateDoc } from '../firebase'
 
 export default function Display() {
     const dispatch = useDispatch()
-    const { change_stage, remove_item, sync_items } = dataSlice.actions
+    const { sync_items } = dataSlice.actions
     const [user] = useAuthState(Auth)
     const [downloadData] = useCollection(fetchQuery(user.uid))
     const data = useSelector(state => state.data)
@@ -17,7 +17,6 @@ export default function Display() {
     const handleRemove = (docID) => {
         try {
             removeDoc(docID)
-            dispatch(remove_item(docID))
         } catch(error) {
             console.error('fail', error)
         }
@@ -26,7 +25,6 @@ export default function Display() {
     const handleCheckStatus = (docID, complete) => {
         try {
             updateDoc(docID, complete)
-            dispatch(change_stage(docID))
         } catch(error) {
             console.error('updateDoc fail', error)
         }

@@ -1,17 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {useDispatch} from 'react-redux'
-import {dataSlice} from '../Redux'
 import {Auth, createDoc} from '../firebase'
 
 export default function Insert() {
     const Ref = useRef()
-    const dispatch = useDispatch()
     const [insert, setInsert] = useState("")
-    const { add_item } = dataSlice.actions
+
     const handleKeyPress = e => {
         if (e.key === 'Enter' && insert !== '') {
             e.preventDefault()
-            dispatch(add_item(insert))
             setInsert('')
             try {
                 createDoc(Auth.currentUser.uid, insert)
