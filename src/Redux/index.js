@@ -41,7 +41,7 @@ export const dataSlice = createSlice({
                 return {...v}
             }
         ),
-        sync_items: (state, action) => [...state, ...action.payload],
+        sync_items: (state, {payload}) => [...payload],
         delete_items: () => [],
     }
 })

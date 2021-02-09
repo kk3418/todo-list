@@ -16,12 +16,10 @@ function App() {
   const isLogin = useSelector(state => state.login.isLogin)
   const dispatch = useDispatch()
   const logout = () => Auth.signOut()
+    .then(() => dispatch(delete_items()))
 
   useEffect(()=> {
-    if (user) {
-      dispatch(delete_items())
-      dispatch(succeedLogin(user.uid))
-    } else dispatch(failLogin())
+    user ? dispatch(succeedLogin(user.uid)) : dispatch(failLogin())
   })
 
   return (

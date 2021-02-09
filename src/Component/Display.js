@@ -1,15 +1,53 @@
-import React from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {dataSlice} from '../Redux'
 import Insert from './Insert'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import  {Auth, fetchQuery, removeDoc, updateDoc } from '../firebase'
 
 export default function Display() {
-    const dispatch =useDispatch()
-    const { change_stage, remove_item} = dataSlice.actions
+    const dispatch = useDispatch()
+    const { change_stage, remove_item, sync_items } = dataSlice.actions
+    const [user] = useAuthState(Auth)
+    const [downloadData] = useCollection(fetchQuery(user.uid))
     const data = useSelector(state => state.data)
     const isDisplay = useSelector(state => state.filter)
 
-    function createList(s= [], isCompleted= false) {
+    const handleRemove = (docID) => {
+        try {
+            removeDoc(docID)
+            dispatch(remove_item(docID))
+        } catch(error) {
+            console.error('fail', error)
+        }
+    }
+
+    const handleCheckStatus = (docID, complete) => {
+        try {
+            updateDoc(docID, complete)
+            dispatch(change_stage(docID))
+        } catch(error) {
+            console.error('updateDoc fail', error)
+        }
+    }
+
+    const fetchData = useCallback(() => {
+        downloadData && dispatch(sync_items(
+            downloadData.docs.map(doc => ({
+                title: doc.data().todo,
+                complete: doc.data().complete,
+                docID: doc.id,
+            }))
+        ))
+    }, [downloadData, dispatch, sync_items])
+    
+    useEffect(() => {
+        fetchData()
+    }, [fetchData])
+
+    function createList(s, isCompleted= false) {
+        if (!s) return 
         const result = s.map(
             (item, index) => {
                 if (item.complete === isCompleted) return (             
@@ -17,11 +55,11 @@ export default function Display() {
                         <input type="checkbox"
                             className="check-done" 
                             checked={isCompleted}
-                            onChange={()=> dispatch(change_stage(item.title))}
+                            onChange={() => handleCheckStatus(item.docID)}
                         />
                         {item.title}
                         <button className="remove-button"
-                            onClick={() => dispatch(remove_item(item.title))}
+                            onClick={() => handleRemove(item.docID, item.complete)}
                         >
                             remove
                         </button>

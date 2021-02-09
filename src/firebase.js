@@ -19,7 +19,9 @@ export const db = app.firestore().collection("list")
 
 const { serverTimestamp } = firebase.firestore.FieldValue
 
-export const updateDoc = (uid, item) => db
+export const fetchQuery = (uid) => uid && db.where('uid', '==', uid)
+
+export const createDoc = (uid, item) => db
     .add({
         uid,
         todo: item,
@@ -29,15 +31,9 @@ export const updateDoc = (uid, item) => db
     .then(res => console.log('success: ', res))
     .catch(error => console.error(error))
 
-export const  observeChange = (uid) => db
-    .where('uid', '==', uid)
-    .onSnapshot(querySanpshot => {
-        querySanpshot.docChanges().forEach(change => {
-            if (change.type === 'added') console.log('added')
-            else if (change.type === 'modified') console.log('midified')
-            else console.log('else')
-        })
-    }, (error) => console.log('Error of firestore: ', error))
+export const updateDoc = (docID, complete) => db.doc(docID)
+    .update({ complete })
 
-export const signIn = async (email, password) => 
-    await app.auth().signInWithEmailAndPassword(email, password)
+export const removeDoc = (docID) => db.doc(docID).delete()
+    .then(() => console.log('Item has been deleted'))
+    .catch(error => console.log(error))

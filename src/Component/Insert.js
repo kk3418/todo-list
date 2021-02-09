@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import {dataSlice} from '../Redux'
-import {Auth, updateDoc} from '../firebase'
+import {Auth, createDoc} from '../firebase'
 
 export default function Insert() {
     const Ref = useRef()
@@ -14,9 +14,9 @@ export default function Insert() {
             dispatch(add_item(insert))
             setInsert('')
             try {
-                updateDoc(Auth.currentUser.uid, insert)
+                createDoc(Auth.currentUser.uid, insert)
             } catch(error) {
-                console.error('updateDoc function fail', error)
+                console.error('createDoc function fail', error)
             }
         }
     }

@@ -1,9 +1,9 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
-import {signIn} from '../firebase'
 import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import {Auth} from '../firebase'
 
 export default function Login() {
     const { register, errors, handleSubmit } = useForm()
@@ -11,7 +11,8 @@ export default function Login() {
     const onSubmit = (data, e) => {
         e.preventDefault()
         const { account, password } = data
-        signIn(account, password).catch(error => {
+        Auth.signInWithEmailAndPassword(account, password)
+        .catch(error => {
             console.log(error.message)
             window.alert('Your account not exist or password is wrong')
         })
