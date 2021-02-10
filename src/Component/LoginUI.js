@@ -5,10 +5,8 @@ import Button from 'react-bootstrap/Button'
 
 export function LoginUI(props) {
     const { handleSubmit, register, errors, signUp } = props
-    const registerRef = register({ required: true })
-    const errorsText = text => <Alert variant="danger" 
-        bsPrefix="alert-items"
-    >
+    const registerRef = register({ required: true, minLength: 6 })
+    const errorsText = text => <Alert bsPrefix="alert-items">
         {`Please insert your ${text}`}
     </Alert>
 
@@ -35,7 +33,9 @@ export function LoginUI(props) {
                     type="password" placeholder="Password" 
                     ref={registerRef} name="password"
                 />
-                { errors.password && errorsText('password')}
+                { (errors.password && errorsText(
+                    'password and at least 6 characters'
+                )) }
             </Form.Group>
 
             {signUp && <Form.Group controlId="agree-checkbox"

@@ -15,7 +15,7 @@ export default function Login() {
         const { account, password } = data
         signUp ? Auth.createUserWithEmailAndPassword(account, password)
         .then(() => window.alert(`Your accont is created`))
-        .catch(error => console.error(error)) 
+        .catch(error => window.alert(error.message)) 
         :
         Auth.signInWithEmailAndPassword(account, password)
         .catch(error => {
@@ -23,7 +23,7 @@ export default function Login() {
                 window.alert(`Your passwrod is wrong`)
                 :
                 setSignUp(window.confirm(
-                    `Your account doesn't exist, wanna regist one ?`
+                    `Your account doesn't exist, wanna create one ?`
                 ))
         })
     }
@@ -39,12 +39,12 @@ export default function Login() {
         <LoginUI {...loginUIProps}
             signUp={signUp}
         >
-            {signUp && <Button type="button"
+            <Button type="button"
                 variant="secondary"
-                onClick={() => setSignUp(false)}
+                onClick={() => setSignUp(!signUp)}
             >
-                Back to login 
-            </Button>}
+                {signUp ? 'Back to login' : 'Go to sigup' }
+            </Button>
         </LoginUI>
     )
 }
