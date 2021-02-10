@@ -75,7 +75,7 @@ export default function Display() {
             <ul style={{display: isDisplay.todo ? "block" : "none"}}>
                 <li style={{fontSize: "1.2rem"}}>To do</li>
                 { createList(data, false) }
-                <Insert />
+                <Insert data={data} />
             </ul>
             <ul style={{display: isDisplay.done ? "block" : "none"}}>
                 <li style={{fontSize: "1.2rem"}}>Done</li>

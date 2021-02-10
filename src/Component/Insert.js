@@ -1,16 +1,17 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {Auth, createDoc} from '../firebase'
 
-export default function Insert() {
+export default function Insert({ data }) {
     const Ref = useRef()
     const [insert, setInsert] = useState("")
 
     const handleKeyPress = e => {
         if (e.key === 'Enter' && insert !== '') {
             e.preventDefault()
+            const isRepeat = data.some(({ title }) => title === insert)
             setInsert('')
             try {
-                createDoc(Auth.currentUser.uid, insert)
+                !isRepeat && createDoc(Auth.currentUser.uid, insert)
             } catch(error) {
                 console.error('createDoc function fail', error)
             }
