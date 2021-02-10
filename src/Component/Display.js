@@ -2,15 +2,13 @@ import React, {useCallback, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {dataSlice} from '../Redux'
 import Insert from './Insert'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import  {Auth, fetchQuery, removeDoc, updateDoc } from '../firebase'
 
 export default function Display() {
     const dispatch = useDispatch()
     const { sync_items } = dataSlice.actions
-    const [user] = useAuthState(Auth)
-    const [downloadData] = useCollection(fetchQuery(user.uid))
+    const [downloadData] = useCollection(fetchQuery(Auth.currentUser.uid))
     const data = useSelector(state => state.data)
     const isDisplay = useSelector(state => state.filter)
 
