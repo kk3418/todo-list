@@ -7,7 +7,7 @@ import {Auth} from '../firebase'
 const WRONG_PASSWORD = "auth/wrong-password"
 
 export default function Login() {
-    const [signUp, setSignUp] = useState(true)
+    const [signUp, setSignUp] = useState(false)
     const { handleSubmit, register, errors } = useForm()
     
     const onSubmit = (data, e) => {
