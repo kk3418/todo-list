@@ -1,69 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useForm} from 'react-hook-form'
-import Form from 'react-bootstrap/Form'
-import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import { LoginUI } from './LoginUI'
 import {Auth} from '../firebase'
 
+const WRONG_PASSWORD = "auth/wrong-password"
+
 export default function Login() {
-    const { register, errors, handleSubmit } = useForm()
+    const [signUp, setSignUp] = useState(true)
+    const { handleSubmit, register, errors } = useForm()
     
     const onSubmit = (data, e) => {
         e.preventDefault()
         const { account, password } = data
+        signUp ? Auth.createUserWithEmailAndPassword(account, password)
+        .then(() => window.alert(`Your accont is created`))
+        .catch(error => console.error(error)) 
+        :
         Auth.signInWithEmailAndPassword(account, password)
         .catch(error => {
-            console.log(error.message)
-            window.alert('Your account not exist or password is wrong')
+            (error.code === WRONG_PASSWORD) ? 
+                window.alert(`Your passwrod is wrong`)
+                :
+                setSignUp(window.confirm(
+                    `Your account doesn't exist, wanna regist one ?`
+                ))
         })
     }
-    const onError = (error, e) => console.log(error, e)
-    const errorsText = text => <Alert variant="danger" 
-        bsPrefix="alert-items"
-    >
-        {`Please insert your ${text}`}
-    </Alert>
+
+    const loginUIProps = {
+        handleSubmit: handleSubmit(onSubmit),
+        register: register,
+        errors: errors,
+    }
+
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit, onError)} 
-            className="login-container"
+        <LoginUI {...loginUIProps}
+            signUp={signUp}
         >
-            <Form.Group controlId="email-input"
-                bsPrefix="login-items"
+            {signUp && <Button type="button"
+                variant="secondary"
+                onClick={() => setSignUp(false)}
             >
-                <Form.Label>Email</Form.Label>
-                <Form.Control size="sm"
-                    type="email" placeholder="email"
-                    ref={register({required: true})} name="account"
-                />
-                { errors.account && errorsText('email')}
-            </Form.Group>
-
-            <Form.Group controlId="password-input"
-                bsPrefix="login-items"
-            >
-                <Form.Label>Password</Form.Label>
-                <Form.Control size="sm"
-                    type="password" placeholder="Password" 
-                    ref={register({required: true})} name="password"
-                />
-                { errors.password && errorsText('password')}
-            </Form.Group>
-
-            <Form.Group controlId="agree-checkbox"
-                bsPrefix="login-items"
-            >
-                <Form.Check type="checkbox" 
-                    label="I agree my email is seen by developer" 
-                    ref={register({required: true})} name="agree_check"
-                />
-                { errors.agree_check && <Alert bsPrefix="alert-items">
-                    Please check it
-                </Alert> }
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Login / Register
-            </Button>
-        </Form>
+                Back to login 
+            </Button>}
+        </LoginUI>
     )
 }

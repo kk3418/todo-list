@@ -18,14 +18,6 @@ export const dataSlice = createSlice({
     name: 'data',
     initialState: [],
     reducers: {
-        change_stage: (state, action) => state.map(
-            v => {
-                if (v.docID === action.payload) {
-                    return {...v, complete: !v.complete}
-                }
-                return {...v}
-            }
-        ),
         sync_items: (state, {payload}) => [...payload],
         delete_items: () => [],
     }

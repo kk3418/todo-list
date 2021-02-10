@@ -51,11 +51,12 @@ export default function Display() {
                 if (item.complete === isCompleted) return (             
                     <li key={index}> 
                         <input type="checkbox"
+                            id={item.docID}
                             className="check-done" 
                             checked={isCompleted}
                             onChange={() => handleCheckStatus(item.docID, !item.complete)}
                         />
-                        {item.title}
+                        <label htmlFor={item.docID}>{ item.title }</label>
                         <button className="remove-button"
                             onClick={() => handleRemove(item.docID, item.complete)}
                         >

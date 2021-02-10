@@ -26,7 +26,7 @@ export default function Insert() {
             <input name="insert-box"
                 ref={Ref}
                 className="insert-place"
-                placeholder="add something here"
+                placeholder="write something and press Enter"
                 type="text"
                 value={insert}
                 onChange={e => setInsert(e.target.value)}

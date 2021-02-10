@@ -11,6 +11,12 @@
     margin: 2vh auto;
 }
 
+.login-buttons {
+    margin: 5vh auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .alert-items {
     margin: 2vh auto;
     width: 100%;
