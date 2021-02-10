@@ -53,21 +53,20 @@ body {
     background-color: var(--bg);
     color: red;
     border: none;
-    height: 1rem;
     margin-left: 1rem;
-    font-size: 0.5rme;
 }
 
 .insert-area {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-end
+    align-items: flex-end;
 }
 
 .insert-place {
     background-color: var(--bg);
     border: none; 
     font-size: 1rem;
+    min-width: 40%;
 }
 
 .insert-area :focus {
