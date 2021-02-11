@@ -2,6 +2,11 @@
 
 ### 功能：
 簡單的完成事項清單，能輕鬆增加、刪除項目，還能個分別顯示 todo跟 done list，只要用 email就能註冊，隨時存取你的清單
+
+[前往app](https://sideproject-todo.web.app/)
+
+![alt app's gif](https://media.giphy.com/media/jnTVKRnD2s4IocKYta/giphy.gif))
+
 ![alt app's gif](https://media.giphy.com/media/jnTVKRnD2s4IocKYta/giphy.gif)
 
 ### 心得＆筆記：
@@ -13,9 +18,9 @@
 - 用 react-firebase-hooks可以省下許多事，
   `useAuthState(firebase.auth()) for authorization, useCollection(firebaseQuery) for firestore`
 - 如果有會用到`currentUser`的值，最好是使用`useAuthState`，
-  例如直接用`firebase.auth().currentUer.uid`可能在`firebase.signOut()`作用後變null，
+  例如`firebase.auth().currentUer.uid可能在firebase.signOut()作用後變null`，
   這種情況除非用到useEffect，然後去檢查currentUser是否null，
-  要不然最簡單的做法就是一律使用useAuthState
+  要不然最簡單的做法就是一律使用`useAuthState`
 ### Redux
 - `@reduxjs/toolkit` 比起 `redux`更簡單，`createSlice`省去了寫action的code，
   reducer能專注在對應的action而不用寫`Switch statement`去管理
