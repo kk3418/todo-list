@@ -5,8 +5,6 @@
 
 [前往app](https://sideproject-todo.web.app/)
 
-![alt app's gif](https://media.giphy.com/media/jnTVKRnD2s4IocKYta/giphy.gif))
-
 ![alt app's gif](https://media.giphy.com/media/jnTVKRnD2s4IocKYta/giphy.gif)
 
 ### 心得＆筆記：
